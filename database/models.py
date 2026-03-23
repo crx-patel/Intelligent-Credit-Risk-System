@@ -1,11 +1,30 @@
+# ═════════════════════════════════════════════════════════════════════════════
+# Database Models - Database Initialization
+# ═════════════════════════════════════════════════════════════════════════════
+
+"""
+Database initialization and user table management.
+Sets up SQLite database with default user accounts.
+"""
+
+# Standard Library Imports
+# ─────────────────────────────────────────────────────────────────────────────
 import sqlite3
 
-def init_db():
 
+# ═════════════════════════════════════════════════════════════════════════════
+# DATABASE INITIALIZATION
+# ═════════════════════════════════════════════════════════════════════════════
+
+def init_db():
+    """
+    Initialize the credit predictions database.
+    Creates users table and inserts default users if not already present.
+    """
     conn = sqlite3.connect("credit_predictions.db")
     cursor = conn.cursor()
 
-    # Users table
+    # Create users table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,7 +36,7 @@ def init_db():
     )
     """)
 
-    # Default users insert
+    # Insert default users
     cursor.execute("""
     INSERT OR IGNORE INTO users (username, password, role, full_name, created_at)
     VALUES 
@@ -27,14 +46,10 @@ def init_db():
 
     conn.commit()
     conn.close()
-    print("Database initialized!")
+    print("✓ Database initialized successfully!")
+
 
 if __name__ == "__main__":
     init_db()
-
-
-
-
-
 
 # python database/models.py

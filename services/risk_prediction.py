@@ -1,25 +1,65 @@
-﻿
+﻿# ═════════════════════════════════════════════════════════════════════════════
+# Risk Prediction Service - XGBoost Credit Risk Model
+# ═════════════════════════════════════════════════════════════════════════════
+
+"""
+Credit risk prediction service using XGBoost model.
+Provides risk scoring and classification for customer credit assessments.
+"""
+
+# Standard Library Imports
+# ─────────────────────────────────────────────────────────────────────────────
+import os
+
+# Third-Party Imports
+# ─────────────────────────────────────────────────────────────────────────────
 import joblib
 import numpy as np
 import pandas as pd
-import os
 
-# ── Lazy loader for XGBoost model ────────────────────────────────────────────
+
+# ═════════════════════════════════════════════════════════════════════════════
+# MODEL LOADING & CACHING
+# ═════════════════════════════════════════════════════════════════════════════
+
+# Global model cache for lazy loading
 _model = None
 
+
 def get_model():
+    """
+    Get XGBoost model (lazy load from disk).
+    
+    Returns:
+        Loaded XGBoost model
+    """
     global _model
     if _model is None:
         _model = joblib.load("models/model.pkl")
     return _model
 
+
+# Load preprocessing artifacts
 scaler = joblib.load("models/scaler.pkl")
 
 threshold_path = "models/threshold.pkl"
 THRESHOLD = joblib.load(threshold_path) if os.path.exists(threshold_path) else 0.5
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# FEATURE ENGINEERING
+# ═════════════════════════════════════════════════════════════════════════════
+
 def _build_sample(data: dict) -> pd.DataFrame:
+    """
+    Build feature DataFrame from customer data.
+    
+    Args:
+        data (dict): Customer financial data
+        
+    Returns:
+        pd.DataFrame: Feature matrix with expected columns
+    """
     return pd.DataFrame({
         "RevolvingUtilizationOfUnsecuredLines": [data.get("RevolvingUtilizationOfUnsecuredLines", 0)],
         "age":                                  [data.get("age", 30)],
@@ -34,7 +74,20 @@ def _build_sample(data: dict) -> pd.DataFrame:
     })
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# RISK CLASSIFICATION
+# ═════════════════════════════════════════════════════════════════════════════
+
 def _get_label(prob: float) -> str:
+    """
+    Convert probability to risk classification.
+    
+    Args:
+        prob (float): Risk probability (0-1)
+        
+    Returns:
+        str: Risk classification (Low/Medium/High)
+    """
     score = prob * 100
     if score < 8:
         return "Low Risk"
@@ -44,8 +97,21 @@ def _get_label(prob: float) -> str:
         return "High Risk"
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# PREDICTION FUNCTIONS
+# ═════════════════════════════════════════════════════════════════════════════
+
 def predict_risk(data: dict) -> str:
-    model         = get_model()          # ← fix: get_model() call karo
+    """
+    Predict risk classification for customer.
+    
+    Args:
+        data (dict): Customer financial data
+        
+    Returns:
+        str: Risk classification (Low/Medium/High Risk)
+    """
+    model         = get_model()
     sample        = _build_sample(data)
     sample_scaled = scaler.transform(sample)
     prob          = model.predict_proba(sample_scaled)[:, 1][0]
@@ -53,7 +119,18 @@ def predict_risk(data: dict) -> str:
 
 
 def predict_risk_score(data: dict) -> tuple:
-    model         = get_model()          # ← fix: get_model() call karo
+    """
+    Predict risk score with classification.
+    
+    Args:
+        data (dict): Customer financial data
+        
+    Returns:
+        tuple: (display_score, risk_label)
+            - display_score (float): Risk percentage (capped at 20%)
+            - risk_label (str): Risk classification
+    """
+    model         = get_model()
     sample        = _build_sample(data)
     sample_scaled = scaler.transform(sample)
     prob          = model.predict_proba(sample_scaled)[:, 1][0]

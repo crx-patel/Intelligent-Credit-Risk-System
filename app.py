@@ -1,29 +1,54 @@
-﻿import streamlit as st
+﻿# ═════════════════════════════════════════════════════════════════════════════
+# AI Credit Risk Advisor - Main Application
+# ═════════════════════════════════════════════════════════════════════════════
+
+"""
+Main Streamlit application for AI Credit Risk Advisory System.
+Handles user authentication and routing to appropriate dashboards.
+"""
+
+# Standard Library Imports
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Third-Party Imports
+# ─────────────────────────────────────────────────────────────────────────────
+import streamlit as st
+
+# Local Imports
+# ─────────────────────────────────────────────────────────────────────────────
 from auth.login import verify_login
 from database.models import init_db
-
 from dashboards.employee_dashboard import show_employee_dashboard
 from dashboards.customer_dashboard import show_customer_dashboard
 
-# Initialize database
-init_db()
 
-st.set_page_config(page_title="AI Credit Risk Advisor", layout="wide")
+# ═════════════════════════════════════════════════════════════════════════════
+# INITIALIZATION
+# ═════════════════════════════════════════════════════════════════════════════
 
-# Session state initialize
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-
-if "user" not in st.session_state:
-    st.session_state.user = None
+def initialize_app():
+    """Initialize database and page configuration."""
+    init_db()
+    st.set_page_config(page_title="AI Credit Risk Advisor", layout="wide")
 
 
-# Login page
+def initialize_session_state():
+    """Initialize session state variables."""
+    if "logged_in" not in st.session_state:
+        st.session_state.logged_in = False
+    
+    if "user" not in st.session_state:
+        st.session_state.user = None
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# AUTHENTICATION
+# ═════════════════════════════════════════════════════════════════════════════
+
 def show_login():
-
+    """Display login page and handle authentication."""
     st.title("🏦 AI Credit Risk Advisor")
     st.subheader("Please Login to Continue")
-
     st.divider()
 
     col1, col2, col3 = st.columns([1, 2, 1])
@@ -33,7 +58,6 @@ def show_login():
         password = st.text_input("🔒 Password", type="password")
 
         if st.button("Login", use_container_width=True):
-
             user = verify_login(username, password)
 
             if user:
@@ -49,8 +73,8 @@ def show_login():
         st.caption("Customer login: customer1 / cust123")
 
 
-# Logout
 def show_logout():
+    """Display logout button and user info in sidebar."""
     with st.sidebar:
         st.write(f"👤 **{st.session_state.user['full_name']}**")
         st.write(f"Role: `{st.session_state.user['role']}`")
@@ -61,15 +85,25 @@ def show_logout():
             st.rerun()
 
 
-# Main routing
-if not st.session_state.logged_in:
-    show_login()
+# ═════════════════════════════════════════════════════════════════════════════
+# MAIN ROUTING
+# ═════════════════════════════════════════════════════════════════════════════
 
-else:
-    show_logout()
+def main():
+    """Main application entry point."""
+    initialize_app()
+    initialize_session_state()
 
-    if st.session_state.user['role'] == 'employee':
-        show_employee_dashboard()
+    if not st.session_state.logged_in:
+        show_login()
+    else:
+        show_logout()
 
-    elif st.session_state.user['role'] == 'customer':
-        show_customer_dashboard()
+        if st.session_state.user['role'] == 'employee':
+            show_employee_dashboard()
+        elif st.session_state.user['role'] == 'customer':
+            show_customer_dashboard()
+
+
+if __name__ == "__main__":
+    main()

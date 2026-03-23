@@ -898,6 +898,7 @@
 # - Reduce your debt ratio below 0.4
 # - Maintain stable employment for 2+ years
 # - Build a savings record and try again in 1 year""")
+
 import streamlit as st
 import sqlite3
 import pandas as pd
