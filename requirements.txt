@@ -1,22 +1,11 @@
-# Data Processing & Analysis
 numpy
 pandas
-
-# Machine Learning & Modeling
 joblib
 scikit-learn
 xgboost
 imbalanced-learn
-gensim
-
-# Visualization
+gensim==4.3.2
 plotly
-
-# Web Framework
 streamlit
-
-# Text & Voice Processing
 gtts
-
-# PDF & Reporting
 reportlab
