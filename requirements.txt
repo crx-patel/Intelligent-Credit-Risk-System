@@ -10,3 +10,4 @@ plotly
 streamlit
 gtts
 reportlab
+tensorflow==2.13.0
