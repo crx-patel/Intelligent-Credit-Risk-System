@@ -19,31 +19,34 @@ import pandas as pd
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-# MODEL LOADING & CACHING
+# MODEL LOADING & CACHING  (lazy load — no crash at import time)
 # ═════════════════════════════════════════════════════════════════════════════
 
-# Global model cache for lazy loading
-_model = None
+_model   = None
+_scaler  = None
+_threshold = None
 
 
 def get_model():
-    """
-    Get XGBoost model (lazy load from disk).
-    
-    Returns:
-        Loaded XGBoost model
-    """
     global _model
     if _model is None:
         _model = joblib.load("models/model.pkl")
     return _model
 
 
-# Load preprocessing artifacts
-scaler = joblib.load("models/scaler.pkl")
+def get_scaler():
+    global _scaler
+    if _scaler is None:
+        _scaler = joblib.load("models/scaler.pkl")
+    return _scaler
 
-threshold_path = "models/threshold.pkl"
-THRESHOLD = joblib.load(threshold_path) if os.path.exists(threshold_path) else 0.5
+
+def get_threshold():
+    global _threshold
+    if _threshold is None:
+        path = "models/threshold.pkl"
+        _threshold = joblib.load(path) if os.path.exists(path) else 0.5
+    return _threshold
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -53,10 +56,10 @@ THRESHOLD = joblib.load(threshold_path) if os.path.exists(threshold_path) else 0
 def _build_sample(data: dict) -> pd.DataFrame:
     """
     Build feature DataFrame from customer data.
-    
+
     Args:
         data (dict): Customer financial data
-        
+
     Returns:
         pd.DataFrame: Feature matrix with expected columns
     """
@@ -81,10 +84,10 @@ def _build_sample(data: dict) -> pd.DataFrame:
 def _get_label(prob: float) -> str:
     """
     Convert probability to risk classification.
-    
+
     Args:
         prob (float): Risk probability (0-1)
-        
+
     Returns:
         str: Risk classification (Low/Medium/High)
     """
@@ -104,14 +107,15 @@ def _get_label(prob: float) -> str:
 def predict_risk(data: dict) -> str:
     """
     Predict risk classification for customer.
-    
+
     Args:
         data (dict): Customer financial data
-        
+
     Returns:
         str: Risk classification (Low/Medium/High Risk)
     """
     model         = get_model()
+    scaler        = get_scaler()
     sample        = _build_sample(data)
     sample_scaled = scaler.transform(sample)
     prob          = model.predict_proba(sample_scaled)[:, 1][0]
@@ -121,16 +125,17 @@ def predict_risk(data: dict) -> str:
 def predict_risk_score(data: dict) -> tuple:
     """
     Predict risk score with classification.
-    
+
     Args:
         data (dict): Customer financial data
-        
+
     Returns:
         tuple: (display_score, risk_label)
             - display_score (float): Risk percentage (capped at 20%)
             - risk_label (str): Risk classification
     """
     model         = get_model()
+    scaler        = get_scaler()
     sample        = _build_sample(data)
     sample_scaled = scaler.transform(sample)
     prob          = model.predict_proba(sample_scaled)[:, 1][0]

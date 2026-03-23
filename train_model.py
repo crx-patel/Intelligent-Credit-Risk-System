@@ -15,7 +15,6 @@ print(f"   Shape: {df.shape}")
 print(f"   Columns: {list(df.columns)}")
 
 # ── Target column detect ───────────────────────────────────────────────────────
-# Common target column names in Give Me Some Credit dataset
 possible_targets = [
     "SeriousDlqin2yrs",
     "target",
@@ -32,7 +31,6 @@ for col in possible_targets:
 if target_col is None:
     print("\n❌ Target column not found!")
     print("Available columns:", list(df.columns))
-    print("Please set target_col manually below.")
     raise ValueError("Set target_col manually!")
 
 print(f"\n✅ Target column: '{target_col}'")
@@ -51,24 +49,17 @@ feature_cols = [
     "NumberOfTime60-89DaysPastDueNotWorse",
     "NumberOfDependents",
 ]
-
-# Keep only available feature columns
 feature_cols = [c for c in feature_cols if c in df.columns]
 print(f"\n✅ Features used: {feature_cols}")
 
 # ── Preprocessing ─────────────────────────────────────────────────────────────
 print("\n🔧 Preprocessing...")
-
-# Drop rows where target is missing
 df = df.dropna(subset=[target_col])
 
 X = df[feature_cols].copy()
 y = df[target_col].copy()
 
-# Fill missing values with median
 X = X.fillna(X.median())
-
-# Clip outliers
 X["MonthlyIncome"]   = X["MonthlyIncome"].clip(upper=50000)
 X["DebtRatio"]       = X["DebtRatio"].clip(upper=5)
 X["RevolvingUtilizationOfUnsecuredLines"] = X["RevolvingUtilizationOfUnsecuredLines"].clip(upper=2)
@@ -108,7 +99,6 @@ model = XGBClassifier(
     scale_pos_weight=scale_pos_weight,
     subsample=0.8,
     colsample_bytree=0.8,
-    use_label_encoder=False,
     eval_metric="logloss",
     random_state=42,
     n_jobs=-1,
@@ -139,13 +129,13 @@ print(classification_report(y_test, y_pred, target_names=["Low Risk", "High Risk
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 
-# ── Save Models ───────────────────────────────────────────────────────────────
+# ── Save Models (protocol=2 for universal compatibility) ──────────────────────
 os.makedirs("models", exist_ok=True)
-joblib.dump(model, "models/model.pkl")
-joblib.dump(scaler, "models/scaler.pkl")
-joblib.dump(best_threshold, "models/threshold.pkl")
+joblib.dump(model,          "models/model.pkl",     protocol=2)
+joblib.dump(scaler,         "models/scaler.pkl",    protocol=2)
+joblib.dump(best_threshold, "models/threshold.pkl", protocol=2)
 
-print("\n✅ Model saved to models/model.pkl")
-print("✅ Scaler saved to models/scaler.pkl")
-print(f"✅ Threshold saved to models/threshold.pkl (value: {best_threshold:.2f})")
+print("\n✅ model.pkl     saved (protocol=2)")
+print("✅ scaler.pkl    saved (protocol=2)")
+print(f"✅ threshold.pkl saved (protocol=2) → value: {best_threshold:.2f}")
 print("\n🎉 Training complete!")
