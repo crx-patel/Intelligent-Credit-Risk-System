@@ -1,0 +1,114 @@
+Low credit score decreases the probability of personal loan approval.
+Long credit history positively influences the credit rating.
+Frequent credit inquiries in a short period lower the credit score.
+High debt-to-income ratio indicates a higher risk for lenders.
+Consistent employment history improves the reliability of a borrower.
+Collateral availability reduces the interest rate on secured loans.
+Previous loan defaults significantly decrease future borrowing capacity.
+Multiple active loans increase the monthly debt obligation.
+Co-signer support enhances the chances of loan approval for students.
+Accurate personal documentation speeds up the verification process.
+High net worth increases the limit on unsecured credit lines.
+Bankruptcy history remains a negative factor for ten years.
+Regular savings habits signal financial discipline to the bank.
+High disposable income allows for faster loan repayment.
+Seasonal income fluctuations increase the risk of payment delays.
+Automatic debit setups reduce the chance of missing a due date.
+Overdraft frequency indicates poor cash flow management.
+Increasing the credit limit without spending improves the utilization ratio.
+Diversified credit mix improves the credit profile.
+Residential stability is viewed positively by mortgage underwriters.
+High credit card balances relative to limits signal financial stress.
+Building an emergency fund ensures better debt management during crises.
+Low debt-to-asset ratio strengthens the balance sheet.
+Excessive leverage increases vulnerability to market downturns.
+High liquidity allows immediate settlement of short-term debts.
+Timely tax filings reflect transparent financial standing.
+Low expense-to-income ratio facilitates higher investment capacity.
+Proper insurance coverage protects against unforeseen financial shocks.
+Refinancing a loan at a lower rate reduces total interest paid.
+Large outstanding medical bills can impair a consumer’s credit score.
+Regular credit report monitoring helps early fraud detection.
+Paying more than the minimum due reduces the principal faster.
+Closing old credit cards can unintentionally shorten credit history length.
+Negative equity in a property increases the risk of strategic default.
+Uncontrolled impulsive spending can lead to a debt trap.
+Transparency in financial disclosures builds trust with creditors.
+Effective budgeting prevents the need for high-interest payday loans.
+Non-performing assets reduce profitability in the banking sector.
+Strong KYC norms prevent money laundering and financial fraud.
+Financial literacy programs increase usage of formal banking channels.
+Peer-to-peer lending platforms bypass traditional banking intermediaries.
+Crowdfunding provides alternative capital sources for startups.
+Government subsidies reduce the effective cost of educational loans.
+Asset-backed securities provide liquidity to the mortgage market.
+High-yield bonds carry a greater risk of default.
+Margin calls occur when the value of a leveraged account drops.
+Stop-loss orders protect investors from extreme market declines.
+Bull markets often increase margin lending.
+Bear markets encourage a shift toward safe-haven assets.
+Algorithmic trading increases market efficiency and speed.
+Insider trading undermines the integrity of financial markets.
+Corporate governance standards influence investor confidence.
+Environmental, Social, and Governance scores affect credit terms.
+Insufficient credit history leads to direct loan rejection.
+Frequent job changes within a year signal instability to lenders.
+Late payment history on credit cards increases the borrower’s risk profile.
+Discrepancies in income tax returns can halt loan approval.
+Unpaid utility bills appearing on credit reports reduce creditworthiness.
+Applying for multiple loans simultaneously triggers hard credit inquiries.
+High credit utilization suggests heavy reliance on borrowed funds.
+Lack of collateral increases the probability of unsecured loan rejection.
+Inconsistent salary credits raise red flags during underwriting.
+An active legal dispute against the applicant increases default risk.
+Omission of liabilities in the application form is considered fraud.
+The loan-to-value ratio must remain within the bank’s prescribed limits.
+Frequent bounced checks signal a liquidity crisis.
+Low debt-service coverage ratio indicates insufficient cash flow.
+Large unexplained cash deposits may trigger AML investigations.
+Inaccurate address verification can lead to application decline.
+Frequent address changes correlate with higher skip-tracing risk.
+High interest rates on existing debts reduce borrowing capacity.
+Using more than fifty percent of total credit limit is a negative signal.
+Thin credit files make repayment behavior harder to predict.
+Write-off accounts are among the most severe credit scoring red flags.
+High leverage in a startup business increases default risk.
+Undisclosed guarantees increase contingent liabilities.
+Identity theft victims often face major hurdles in credit correction.
+Mismatch between lifestyle and declared income triggers risk alerts.
+Unregistered property documents cannot be used as collateral.
+Defaulting on a gold loan results in immediate auction of the asset.
+High dependency ratios reduce surplus available for loan repayment.
+Large outstanding medical debt reduces repayment capacity.
+Low net worth relative to loan amount increases lender exposure.
+Inadequate insurance coverage increases collateral risk.
+Past-due retail loans can block approval of larger loans.
+Absence of a co-applicant lowers approval chances for low-income borrowers.
+Frequent late fees indicate poor financial discipline.
+Insufficient cash reserves to cover multiple EMIs increase risk.
+Frequent limit increase requests may indicate liquidity problems.
+Borrowing from unregulated lenders signals rejection by banks.
+Long unemployment periods reduce loan eligibility.
+Negative lender remarks on credit bureau reports reduce approval probability.
+High EMI-to-income ratio signals potential repayment stress.
+Incorrect identity details cause credit bureau mismatches.
+Loan restructuring history indicates previous repayment difficulties.
+Using credit cards for business expenses distorts risk assessment.
+High dependency on a single income source increases financial fragility.
+Frequent digital wallet loads from credit cards are treated as cash withdrawals.
+High revolving credit balances reduce monthly disposable income.
+Defaulting on a student loan damages early credit history.
+A sudden spike in credit card spending before applying for loans signals credit hunger.
+Insufficient business vintage often results in loan rejection.
+Inconsistent GST filings reduce business loan eligibility.
+High unsecured debt share weakens credit profiles.
+Frequent inquiries for quick loans indicate financial distress.
+High ratio of unsecured personal loans signals lack of collateral.
+Frequent overdrafts indicate poor working capital management.
+Low residual income after EMI payments reduces borrowing eligibility.
+Presence of written-off accounts is a severe negative credit indicator.
+Frequent requests for moratoriums indicate financial stress.
+High debt-to-equity ratios increase the risk of insolvency.
+Low interest coverage ratios suggest difficulty servicing debt.
+Negative industry outlook reduces lender confidence.
+High probability of default is associated with poor financial literacy.
