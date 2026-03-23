@@ -1,55 +1,45 @@
-import numpy as np
-import pickle
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from tensorflow.keras.models import load_model
-
-# Load trained LSTM model
-model = load_model("text_generator_model.h5")
-
-# Load tokenizer
-with open("tokenizer.pkl", "rb") as f:
-    tokenizer = pickle.load(f)
-
-# Load max_seq_len
-with open("max_seq_len.pkl", "rb") as f:
-    max_seq_len = pickle.load(f)
+"""
+generate_explanation.py
+────────────────────────
+Rule-based credit risk explanation generator.
+Replaces the LSTM/TensorFlow model for deployment compatibility.
+"""
 
 
-def generate_text(seed_text, next_words):
+def generate_explanation(risk_score: str) -> str:
+    """
+    Generate a human-readable explanation for a given risk category.
 
-    for _ in range(next_words):
+    Args:
+        risk_score (str): "High Risk", "Medium Risk", or "Low Risk"
 
-        token_list = tokenizer.texts_to_sequences([seed_text])[0]
-
-        token_list = pad_sequences(
-            [token_list],
-            maxlen=max_seq_len - 1,
-            padding="pre"
-        )
-
-        predicted = model.predict(token_list, verbose=0)
-
-        predicted_word = ""
-
-        for word, index in tokenizer.word_index.items():
-            if index == predicted.argmax():
-                predicted_word = word
-                break
-
-        seed_text += " " + predicted_word
-
-    return seed_text
-
-
-def generate_explanation(risk_score):
+    Returns:
+        str: Explanation text
+    """
 
     if risk_score == "High Risk":
-        seed = "High debt ratio increases the risk"
+        return (
+            "High debt ratio and elevated credit utilization significantly increase your default risk. "
+            "Multiple late payment indicators detected in your financial profile suggest instability. "
+            "Your revolving credit usage is above safe thresholds, which lenders view unfavorably. "
+            "Immediate steps to reduce outstanding debt and improve payment discipline are strongly recommended. "
+            "Consider consulting a financial advisor to create a structured repayment plan."
+        )
 
     elif risk_score == "Medium Risk":
-        seed = "Moderate financial risk detected"
+        return (
+            "Moderate financial risk detected based on your credit profile. "
+            "Your debt ratio is manageable but your credit utilization could be improved. "
+            "Some minor delinquency indicators are present but not critical at this stage. "
+            "Maintaining consistent on-time payments and reducing revolving balances will help lower your risk. "
+            "With disciplined financial habits over the next 6-12 months, your profile can improve significantly."
+        )
 
     else:
-        seed = "Low financial risk detected"
-
-    return generate_text(seed, 15)
+        return (
+            "Low financial risk detected — your credit profile looks healthy and well-managed. "
+            "Your debt ratio and credit utilization are well within safe limits. "
+            "No significant late payment history detected, which reflects strong financial discipline. "
+            "You are in a favorable position for loan approvals and credit products. "
+            "Continue your current financial habits to maintain this strong credit standing."
+        )
