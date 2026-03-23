@@ -1,11 +1,11 @@
-numpy==2.3.5
-pandas
-joblib==1.5.2
+numpy==2.2.6   ← (stable for Python 3.11)
 scikit-learn==1.7.2
-xgboost==3.2.0
+pandas
+joblib
+xgboost
 imbalanced-learn
 gensim==4.3.2
-scipy==1.11.4
+scipy==1.13.1
 tensorflow==2.13.0
 plotly
 streamlit
