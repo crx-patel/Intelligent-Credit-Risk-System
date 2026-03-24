@@ -4,7 +4,7 @@ joblib
 scikit-learn
 xgboost
 imbalanced-learn
-gensim
+gensim>=4.3.2
 scipy
 plotly
 streamlit
