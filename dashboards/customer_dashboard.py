@@ -1,7 +1,7 @@
 
 
 import streamlit as st
-from db import get_connection
+
 import pandas as pd
 import threading
 import queue
