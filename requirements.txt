@@ -7,6 +7,6 @@ streamlit==1.32.0
 xgboost
 imbalanced-learn
 scipy
-plotly
+plotly==5.18.0
 gtts
 reportlab
