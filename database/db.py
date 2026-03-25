@@ -81,10 +81,11 @@ Handles prediction logging and data persistence.
 
 # Standard Library Imports
 # ─────────────────────────────────────────────────────────────────────────────
-import os
-from datetime import datetime
+# ═════════════════════════════════════════════════════════════════════════════
+# Database Module - PostgreSQL (Render)
+# ═════════════════════════════════════════════════════════════════════════════
 
-# Third Party
+import os
 import psycopg2
 
 
@@ -93,8 +94,16 @@ import psycopg2
 # ═════════════════════════════════════════════════════════════════════════════
 
 def get_connection():
+    """
+    Connect to PostgreSQL using Render DATABASE_URL
+    """
+    database_url = os.getenv("DATABASE_URL")
+
+    if not database_url:
+        raise ValueError("❌ DATABASE_URL not set in environment variables")
+
     return psycopg2.connect(
-        os.getenv("postgresql://credit_risk_db_8m2h_user:mpJJkVqIgWfLSzg2VFCwIu8XOrhpfEEp@dpg-d7238dlm5p6s73ckc49g-a.oregon-postgres.render.com/credit_risk_db_8m2h"),
+        database_url,
         sslmode="require"
     )
 
@@ -104,6 +113,9 @@ def get_connection():
 # ═════════════════════════════════════════════════════════════════════════════
 
 def init_db():
+    """
+    Create table if not exists
+    """
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -126,24 +138,23 @@ def init_db():
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-# PREDICTION STORAGE
+# SAVE PREDICTION
 # ═════════════════════════════════════════════════════════════════════════════
 
 def save_prediction(data: dict, risk: str, fraud: str) -> None:
     """
-    Save credit risk prediction to PostgreSQL database.
+    Save prediction data into PostgreSQL
     """
 
     conn = get_connection()
     cursor = conn.cursor()
 
-    # Extract values
+    # Extract values safely
     age = data.get("age", 0)
     income = data.get("MonthlyIncome", 0)
     debt_ratio = data.get("DebtRatio", 0)
     credit_util = data.get("RevolvingUtilizationOfUnsecuredLines", 0)
 
-    # Insert data
     cursor.execute("""
     INSERT INTO predictions 
     (age, MonthlyIncome, DebtRatio, RevolvingUtilizationOfUnsecuredLines, risk, fraud)
