@@ -10,4 +10,4 @@ scipy
 plotly==5.18.0
 gtts
 reportlab
-psycopg2-binary
+psycopg2-binary==2.9.9
