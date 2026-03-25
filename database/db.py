@@ -113,23 +113,30 @@ def get_connection():
 # ═════════════════════════════════════════════════════════════════════════════
 
 def init_db():
-    """
-    Create table if not exists
-    """
     conn = get_connection()
     cursor = conn.cursor()
 
+    # predictions table
+    cursor.execute(""" CREATE TABLE IF NOT EXISTS predictions (...) """)
+
+    # users table
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS predictions (
+    CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
-        age INTEGER,
-        MonthlyIncome FLOAT,
-        DebtRatio FLOAT,
-        RevolvingUtilizationOfUnsecuredLines FLOAT,
-        risk TEXT,
-        fraud TEXT,
-        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        username TEXT UNIQUE,
+        password TEXT,
+        full_name TEXT,
+        role TEXT
     )
+    """)
+
+    # default users
+    cursor.execute("""
+    INSERT INTO users (username, password, full_name, role)
+    VALUES 
+    ('admin', 'admin123', 'Admin User', 'employee'),
+    ('customer1', 'cust123', 'Customer One', 'customer')
+    ON CONFLICT (username) DO NOTHING
     """)
 
     conn.commit()
