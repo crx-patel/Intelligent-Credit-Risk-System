@@ -6,7 +6,7 @@
 
 
 import streamlit as st
-from db import get_connection
+from database.db import get_connection
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go

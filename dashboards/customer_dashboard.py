@@ -13,7 +13,7 @@ from services.fraud_detection import detect_fraud
 from services.credit_card_eligibility import predict_credit_card_eligibility
 from services.advisor_engine import generate_advice
 from services.chatbot import chatbot_response
-from database.db import save_prediction
+from database.db import get_connection
 from generate_explanation import generate_explanation
 from dashboards.whatif_simulator import show_whatif_simulator
 from dashboards.pdf_report import generate_pdf_report

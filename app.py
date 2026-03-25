@@ -14,7 +14,7 @@ import streamlit as st
 # Local Imports
 # ─────────────────────────────────────────────────────────────────────────────
 from auth.login import verify_login
-from db import init_db   # ✅ FIXED (PostgreSQL DB)
+from database.db import init_db
 from dashboards.employee_dashboard import show_employee_dashboard
 from dashboards.customer_dashboard import show_customer_dashboard
 
