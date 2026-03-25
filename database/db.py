@@ -94,7 +94,7 @@ import psycopg2
 
 def get_connection():
     return psycopg2.connect(
-        os.getenv("DATABASE_URL"),
+        os.getenv("postgresql://credit_risk_db_8m2h_user:mpJJkVqIgWfLSzg2VFCwIu8XOrhpfEEp@dpg-d7238dlm5p6s73ckc49g-a.oregon-postgres.render.com/credit_risk_db_8m2h"),
         sslmode="require"
     )
 
