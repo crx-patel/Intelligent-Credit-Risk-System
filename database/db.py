@@ -111,13 +111,23 @@ def get_connection():
 # ═════════════════════════════════════════════════════════════════════════════
 # TABLE INITIALIZATION
 # ═════════════════════════════════════════════════════════════════════════════
-
 def init_db():
     conn = get_connection()
     cursor = conn.cursor()
 
     # predictions table
-    cursor.execute(""" CREATE TABLE IF NOT EXISTS predictions (...) """)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS predictions (
+        id SERIAL PRIMARY KEY,
+        age INTEGER,
+        MonthlyIncome DOUBLE PRECISION,
+        DebtRatio DOUBLE PRECISION,
+        RevolvingUtilizationOfUnsecuredLines DOUBLE PRECISION,
+        risk TEXT,
+        fraud TEXT,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
 
     # users table
     cursor.execute("""
