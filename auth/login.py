@@ -1,5 +1,5 @@
 # ═════════════════════════════════════════════════════════════════════════════
-# Authentication Module - User Login Verification
+# Authentication Module - User Login Verification (PostgreSQL)
 # ═════════════════════════════════════════════════════════════════════════════
 
 """
@@ -7,9 +7,9 @@ User authentication and login verification module.
 Handles credential verification against the user database.
 """
 
-# Standard Library Imports
+# Database Connection
 # ─────────────────────────────────────────────────────────────────────────────
-import sqlite3
+from database.db import get_connection
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -18,27 +18,21 @@ import sqlite3
 
 def verify_login(username: str, password: str) -> dict | None:
     """
-    Verify user credentials against database.
-    
-    Args:
-        username (str): User's username
-        password (str): User's password
-        
-    Returns:
-        dict: User info if credentials valid, None otherwise
-            Contains: id, username, role, full_name
-        None: If credentials are invalid
+    Verify user credentials against PostgreSQL database.
     """
-    conn = sqlite3.connect("credit_predictions.db")
+
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
         SELECT id, username, role, full_name 
         FROM users 
-        WHERE username = ? AND password = ?
+        WHERE username = %s AND password = %s
     """, (username, password))
 
     user = cursor.fetchone()
+
+    cursor.close()
     conn.close()
 
     if user:
@@ -48,4 +42,5 @@ def verify_login(username: str, password: str) -> dict | None:
             "role": user[2],
             "full_name": user[3]
         }
+
     return None
