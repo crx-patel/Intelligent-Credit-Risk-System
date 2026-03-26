@@ -11,3 +11,4 @@ __pycache__/
 *.pyc
 *.db
 .ipynb_checkpoints/
+.env
