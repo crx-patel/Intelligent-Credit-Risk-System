@@ -1,6 +1,7 @@
 
 
 import streamlit as st
+from database.db import save_prediction
 
 import pandas as pd
 import threading
